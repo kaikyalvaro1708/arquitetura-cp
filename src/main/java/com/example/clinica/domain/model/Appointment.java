@@ -6,22 +6,22 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "consulta")
+@Table(name = "appointment")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-public class Consulta {
+public class Appointment {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(optional = false) @JoinColumn(name = "paciente_id")
-    private Paciente paciente;
+    private Patient patient;
 
-    @ManyToOne(optional = false) @JoinColumn(name = "medico_id")
-    private Medico medico;
+    @ManyToOne(optional = false) @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
 
     @Enumerated(EnumType.STRING) @Column(nullable = false)
-    private StatusConsulta status;
+    private StatusAppointment status;
 
     @Column(name = "data_hora", nullable = false)
-    private LocalDateTime dataHora;
+    private LocalDateTime dateTime;
 }

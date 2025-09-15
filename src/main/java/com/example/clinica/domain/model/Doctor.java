@@ -7,19 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "medico")
+@Table(name = "doctor")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-public class Medico {
+public class Doctor {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String nome;
+    private String name;
 
     @Column(nullable = false, unique = true)
     private String crm;
 
-    @OneToMany(mappedBy = "medico")
-    private List<Consulta> consultas = new ArrayList<>();
+    @OneToMany(mappedBy = "doctor")
+    private List<Appointment> appointments = new ArrayList<>();
 }

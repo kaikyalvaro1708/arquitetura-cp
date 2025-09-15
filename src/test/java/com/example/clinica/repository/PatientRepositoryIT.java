@@ -1,8 +1,8 @@
 package com.example.clinica.repository;
 
-import com.example.clinica.domain.model.Paciente;
+import com.example.clinica.domain.model.Patient;
 import com.example.clinica.domain.model.vo.Cpf;
-import com.example.clinica.domain.model.vo.Email;
+import com.example.clinica.domain.model.vo.EmailAddress;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Testcontainers
-class PacienteRepositoryIT {
+class PatientRepositoryIT {
 
     @Container
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine")
@@ -33,14 +33,14 @@ class PacienteRepositoryIT {
     }
 
     @Autowired
-    PacienteRepository repo;
+    PatientRepository repo;
 
     @Test
     void deveSalvarEEncontrarPorCpf() {
-        Paciente p = Paciente.builder()
-                .nome("Ana")
+        Patient p = Patient.builder()
+                .name("Ana")
                 .cpf(new Cpf("12345678901"))
-                .email(new Email("ana@example.com"))
+                .email(new EmailAddress("ana@example.com"))
                 .build();
         repo.save(p);
         assertTrue(repo.findByCpfValue("12345678901").isPresent());

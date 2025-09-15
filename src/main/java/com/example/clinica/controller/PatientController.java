@@ -1,8 +1,8 @@
 package com.example.clinica.controller;
 
-import com.example.clinica.dto.PacienteCreateDTO;
-import com.example.clinica.dto.PacienteResponseDTO;
-import com.example.clinica.service.PacienteService;
+import com.example.clinica.dto.request.PatientCreateDTO;
+import com.example.clinica.dto.response.PatientResponseDTO;
+import com.example.clinica.service.PatientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,23 +16,23 @@ import jakarta.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/pacientes")
+@RequestMapping("/patients")
 @RequiredArgsConstructor
-public class PacienteController {
+public class PatientController {
 
-    private final PacienteService service;
+    private final PatientService service;
 
     @Operation(summary = "Cria um paciente")
     @ApiResponse(responseCode = "201", description = "Criado")
     @PostMapping
-    public ResponseEntity<Void> criar(@Valid @RequestBody PacienteCreateDTO dto) {
+    public ResponseEntity<Void> criar(@Valid @RequestBody PatientCreateDTO dto) {
         Long id = service.criar(dto);
-        return ResponseEntity.created(URI.create("/pacientes/" + id)).build();
+        return ResponseEntity.created(URI.create("/patients/" + id)).build();
     }
 
     @Operation(summary = "Lista pacientes com paginação")
     @GetMapping
-    public Page<PacienteResponseDTO> listar(@ParameterObject Pageable pageable) {
+    public Page<PatientResponseDTO> listar(@ParameterObject Pageable pageable) {
         return service.listar(pageable);
     }
 }

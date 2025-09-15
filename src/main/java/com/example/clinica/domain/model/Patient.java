@@ -1,7 +1,7 @@
 package com.example.clinica.domain.model;
 
 import com.example.clinica.domain.model.vo.Cpf;
-import com.example.clinica.domain.model.vo.Email;
+import com.example.clinica.domain.model.vo.EmailAddress;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "paciente")
+@Table(name = "patient")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-public class Paciente {
+public class Patient {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,11 +20,11 @@ public class Paciente {
     private Cpf cpf;
 
     @Embedded
-    private Email email;
+    private EmailAddress email;
 
     @Column(nullable = false)
-    private String nome;
+    private String name;
 
-    @OneToMany(mappedBy = "paciente")
-    private List<Consulta> consultas = new ArrayList<>();
+    @OneToMany(mappedBy = "patient")
+    private List<Appointment> appointments = new ArrayList<>();
 }

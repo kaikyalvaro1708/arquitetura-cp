@@ -1,5 +1,5 @@
 package com.example.clinica.domain.model;
 
-public enum StatusConsulta {
+public enum StatusAppointment {
     AGENDADA, CONFIRMADA, CANCELADA
 }
