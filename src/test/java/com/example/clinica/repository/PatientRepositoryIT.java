@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.OracleContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -19,17 +19,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PatientRepositoryIT {
 
     @Container
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine")
-            .withDatabaseName("clinica")
+    static OracleContainer oracle = new OracleContainer("gvenzl/oracle-xe:21-slim-faststart")
+            .withDatabaseName("XEPDB1")
             .withUsername("clinica")
-            .withPassword("secret");
+            .withPassword("secret")
+            .withReuse(true);
 
     @DynamicPropertySource
     static void props(DynamicPropertyRegistry r) {
-        r.add("spring.datasource.url", postgres::getJdbcUrl);
-        r.add("spring.datasource.username", postgres::getUsername);
-        r.add("spring.datasource.password", postgres::getPassword);
+        r.add("spring.datasource.url", oracle::getJdbcUrl);
+        r.add("spring.datasource.username", oracle::getUsername);
+        r.add("spring.datasource.password", oracle::getPassword);
+        r.add("spring.datasource.driver-class-name", () -> "oracle.jdbc.OracleDriver");
         r.add("spring.jpa.hibernate.ddl-auto", () -> "validate");
+        r.add("spring.jpa.properties.hibernate.dialect", () -> "org.hibernate.dialect.OracleDialect");
     }
 
     @Autowired
@@ -43,6 +46,6 @@ class PatientRepositoryIT {
                 .email(new EmailAddress("ana@example.com"))
                 .build();
         repo.save(p);
-        assertTrue(repo.findByCpfValue("12345678901").isPresent());
+        assertTrue(repo.findByCpf_Value("12345678901").isPresent());
     }
 }

@@ -1,34 +1,141 @@
-# Clínica API — Spring Boot (SOA — Prof. Salatiel Luz Marinho)
+# Clínica API — Spring Boot
 
-## Requisitos
-- Java 21
-- Maven 3.9+
-- Docker (para rodar testes com Testcontainers) e PostgreSQL local (para desenvolvimento)
+### Disciplina: SOA — Prof. Salatiel Luz Marinho
 
-## Como rodar
+### Turma: 3ESPW
+
+### Aluno: Kaiky Alvaro de Miranda
+
+### RM: 98118
+
+---
+
+## 📋 Descrição do Projeto
+
+API REST desenvolvida em Spring Boot para gerenciamento de uma clínica médica, permitindo o controle de pacientes, médicos e consultas. O sistema oferece funcionalidades completas de CRUD e operações específicas para agendamento e controle de consultas.
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Java 21**
+- **Spring Boot 3.3.1**
+- **Spring Data JPA**
+- **Spring Boot Validation**
+- **Oracle Database** (OJDBC11)
+- **Flyway** (Migração de banco de dados)
+- **Lombok** (Redução de boilerplate)
+- **SpringDoc OpenAPI 3** (Swagger UI)
+- **Maven** (Gerenciador de dependências)
+- **Testcontainers** (Testes de integração)
+
+## 🏗️ Arquitetura
+
+O projeto segue uma arquitetura em camadas:
+
+```
+src/main/java/com/example/clinica/
+├── controller/          # Camada de apresentação (REST Controllers)
+├── dto/                 # Data Transfer Objects
+│   ├── request/         # DTOs para requisições
+│   └── response/        # DTOs para respostas
+├── entity/              # Entidades JPA
+├── repository/          # Camada de acesso a dados
+├── service/             # Camada de negócio
+└── exception/           # Tratamento de exceções
+```
+
+## 📊 Modelo de Dados
+
+### Entidades Principais:
+
+- **Patient** (Paciente): Informações básicas do paciente
+- **Doctor** (Médico): Dados do médico e especialização
+- **Appointment** (Consulta): Agendamentos entre pacientes e médicos
+
+## 🚀 Funcionalidades
+
+### 👥 Pacientes (`/patients`)
+
+- ✅ **POST** `/patients` - Criar novo paciente
+- ✅ **GET** `/patients` - Listar pacientes com paginação
+
+### 👨‍⚕️ Médicos (`/doctors`)
+
+- ✅ **POST** `/doctors` - Cadastrar novo médico
+- ✅ **GET** `/doctors` - Listar médicos com paginação
+- ✅ **GET** `/doctors/{id}` - Buscar médico por ID
+
+### 📅 Consultas (`/appointments`)
+
+- ✅ **POST** `/appointments` - Agendar nova consulta
+- ✅ **GET** `/appointments` - Listar consultas com paginação
+- ✅ **PUT** `/appointments/{id}/cancel` - Cancelar consulta
+- ✅ **PUT** `/appointments/{id}/confirm` - Confirmar consulta
+
+## 📋 Requisitos
+
+- **Java 21**
+- **Maven 3.9+**
+- **Oracle Database** (configurado conforme application.yml)
+- **Docker** (para testes com Testcontainers)
+
+## 🚀 Como Executar
+
+### 1. Clonar o repositório
+
+```bash
+git clone <url-do-repositorio>
+cd clinica-api
+```
+
+### 2. Instalar dependências
+
+```bash
+mvn clean install
+```
+
+### 3. Executar a aplicação
+
 ```bash
 mvn spring-boot:run
-# Swagger UI:
-# http://localhost:8080/swagger-ui.html
 ```
 
-## Banco de Desenvolvimento
-A aplicação espera um Postgres local:
-- URL: `jdbc:postgresql://localhost:5432/clinica`
-- user: `clinica`
-- password: `secret`
 
-Use o script do Flyway (automaticamente aplicado) em `src/main/resources/db/migration/V1__init.sql`.
+## 📖 Exemplos de Uso
 
-## Endpoints iniciais
-- `POST /pacientes` — cria paciente (201)
-- `GET  /pacientes` — lista paginada
+### **1. Criar Paciente**
 
-## Atividade dos estudantes
-Implemente o CRUD de **Médico** com validações e documentação OpenAPI.
-
-## Testes de Integração
 ```bash
-mvn -q -DskipTests=false test
+POST /patients
+Content-Type: application/json
+
+{
+  "name": "Ana Silva",
+  "cpf": "12345678901",
+  "email": "ana.silva@example.com"
+}
 ```
-Os testes utilizam **Testcontainers** com uma instância PostgreSQL efêmera.
+
+### **2. Criar Médico**
+
+```bash
+POST /doctors
+Content-Type: application/json
+
+{
+  "name": "Dr. Carlos Souza",
+  "crm": "CRM-SP-123456"
+}
+```
+
+### **3. Agendar Consulta**
+
+```bash
+POST /appointments
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "doctorId": 1,
+  "dateTime": "2025-09-25T14:30:00Z"
+}
+```

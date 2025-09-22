@@ -26,13 +26,13 @@ public class PatientController {
     @ApiResponse(responseCode = "201", description = "Criado")
     @PostMapping
     public ResponseEntity<Void> criar(@Valid @RequestBody PatientCreateDTO dto) {
-        Long id = service.criar(dto);
+        Long id = service.create(dto);
         return ResponseEntity.created(URI.create("/patients/" + id)).build();
     }
 
     @Operation(summary = "Lista pacientes com paginação")
     @GetMapping
     public Page<PatientResponseDTO> listar(@ParameterObject Pageable pageable) {
-        return service.listar(pageable);
+        return service.list(pageable);
     }
 }

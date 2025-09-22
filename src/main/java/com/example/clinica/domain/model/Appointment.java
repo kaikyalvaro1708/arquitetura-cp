@@ -13,7 +13,7 @@ public class Appointment {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false) @JoinColumn(name = "paciente_id")
+    @ManyToOne(optional = false) @JoinColumn(name = "patient_id")
     private Patient patient;
 
     @ManyToOne(optional = false) @JoinColumn(name = "doctor_id")
@@ -22,6 +22,6 @@ public class Appointment {
     @Enumerated(EnumType.STRING) @Column(nullable = false)
     private StatusAppointment status;
 
-    @Column(name = "data_hora", nullable = false)
+    @Column(name = "date_time", nullable = false)
     private LocalDateTime dateTime;
 }
