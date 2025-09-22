@@ -25,21 +25,21 @@ public class AppointmentController {
     @Operation(summary = "Agenda uma consulta")
     @ApiResponse(responseCode = "201", description = "Consulta agendada")
     @PostMapping
-    public ResponseEntity<Void> agendar(@Valid @RequestBody AppointmentCreateDTO dto) {
+    public ResponseEntity<Void> schedule(@Valid @RequestBody AppointmentCreateDTO dto) {
         Long id = service.create(dto);
         return ResponseEntity.created(URI.create("/appointments/" + id)).build();
     }
 
     @Operation(summary = "Lista consultas com paginação")
     @GetMapping
-    public Page<AppointmentResponseDTO> listar(@ParameterObject Pageable pageable) {
-        return service.listar(pageable);
+    public Page<AppointmentResponseDTO> list(@ParameterObject Pageable pageable) {
+        return service.list(pageable);
     }
 
     @Operation(summary = "Cancela uma consulta")
     @ApiResponse(responseCode = "204", description = "Consulta cancelada")
     @PutMapping("/{id}/cancel")
-    public ResponseEntity<Void> cancelar(@PathVariable Long id) {
+    public ResponseEntity<Void> cancel(@PathVariable Long id) {
         service.cancel(id);
         return ResponseEntity.noContent().build();
     }
@@ -47,7 +47,7 @@ public class AppointmentController {
     @Operation(summary = "Confirma uma consulta")
     @ApiResponse(responseCode = "204", description = "Consulta confirmada")
     @PutMapping("/{id}/confirm")
-    public ResponseEntity<Void> confirmar(@PathVariable Long id) {
+    public ResponseEntity<Void> confirm(@PathVariable Long id) {
         service.cancel(id);
         return ResponseEntity.noContent().build();
     }

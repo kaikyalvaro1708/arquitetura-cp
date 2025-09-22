@@ -49,7 +49,7 @@ public class AppointmentService {
     }
 
     @Transactional(readOnly = true)
-    public Page<AppointmentResponseDTO> listar(Pageable pageable) {
+    public Page<AppointmentResponseDTO> list(Pageable pageable) {
         return repo.findAll(pageable)
                 .map(this::toResponseDTO);
     }
