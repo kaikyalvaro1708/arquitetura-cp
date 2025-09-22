@@ -48,7 +48,7 @@ public class AppointmentController {
     @ApiResponse(responseCode = "204", description = "Consulta confirmada")
     @PutMapping("/{id}/confirm")
     public ResponseEntity<Void> confirm(@PathVariable Long id) {
-        service.cancel(id);
+        service.confirm(id);
         return ResponseEntity.noContent().build();
     }
 }

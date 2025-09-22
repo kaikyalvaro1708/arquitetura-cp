@@ -99,7 +99,6 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-
 ## 📖 Exemplos de Uso
 
 ### **1. Criar Paciente**
@@ -109,9 +108,9 @@ POST /patients
 Content-Type: application/json
 
 {
-  "name": "Ana Silva",
-  "cpf": "12345678901",
-  "email": "ana.silva@example.com"
+  "name": "Fernanda Costa",
+  "cpf": "55566677788",
+  "email": "fernanda.costa@example.com"
 }
 ```
 
@@ -122,8 +121,8 @@ POST /doctors
 Content-Type: application/json
 
 {
-  "name": "Dr. Carlos Souza",
-  "crm": "CRM-SP-123456"
+  "name": "Dr. Henrique Almeida",
+  "crm": "CRM-RS-775599"
 }
 ```
 
@@ -134,8 +133,8 @@ POST /appointments
 Content-Type: application/json
 
 {
-  "patientId": 1,
+  "patientId": 2,
   "doctorId": 1,
-  "dateTime": "2025-09-25T14:30:00Z"
+  "dateTime": "2025-10-03T16:45:00Z"
 }
 ```
