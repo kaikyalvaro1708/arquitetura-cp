@@ -78,29 +78,6 @@ src/main/java/com/example/clinica/
 - **Oracle Database** (configurado conforme application.yml)
 - **Docker** (para testes com Testcontainers)
 
-## ⚙️ Configuração
-
-### Banco de Dados
-
-O projeto está configurado para usar Oracle Database:
-
-```yaml
-spring:
-  datasource:
-    url: jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=oracle.fiap.com.br)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)))
-    username: rm98118
-    password: 170804
-    driver-class-name: oracle.jdbc.OracleDriver
-```
-
-### Flyway
-
-As migrações de banco são gerenciadas pelo Flyway:
-
-- Localização: `src/main/resources/db/migration/`
-- Baseline automático habilitado
-- Validação do esquema no startup
-
 ## 🚀 Como Executar
 
 ### 1. Clonar o repositório
@@ -122,20 +99,6 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-### 4. Acessar a documentação
-
-- **Swagger UI**: http://localhost:8080/swagger-ui.html
-- **OpenAPI Docs**: http://localhost:8080/v3/api-docs
-
-## 🧪 Executar Testes
-
-```bash
-# Testes unitários
-mvn test
-
-# Testes de integração (requer Docker)
-mvn verify
-```
 
 ## 📖 Exemplos de Uso
 
@@ -175,58 +138,4 @@ Content-Type: application/json
   "doctorId": 1,
   "dateTime": "2025-09-25T14:30:00Z"
 }
-```
-
-### **4. Listar com Paginação**
-
-```bash
-GET /patients?page=0&size=10&sort=name,asc
-GET /doctors?page=0&size=5&sort=crm
-GET /appointments?page=0&size=20&sort=dateTime,desc
-```
-
-## 📚 Documentação da API
-
-A documentação completa da API está disponível através do Swagger UI em:
-**http://localhost:8080/swagger-ui.html**
-
-A documentação inclui:
-
-- Descrição de todos os endpoints
-- Esquemas de request/response
-- Códigos de status HTTP
-- Exemplos de uso
-- Interface interativa para testes
-
-## 🔍 Validações
-
-O projeto implementa validações robustas:
-
-- **Bean Validation** com anotações `@Valid`
-- **Validação de CPF** único para pacientes
-- **Validação de CRM** único para médicos
-- **Validação de formato** para emails e datas
-
-## 🐛 Tratamento de Erros
-
-Respostas padronizadas para:
-
-- **400** - Bad Request (dados inválidos)
-- **404** - Not Found (recurso não encontrado)
-- **409** - Conflict (dados duplicados)
-- **500** - Internal Server Error
-
-## 📁 Estrutura do Projeto
-
-```
-clinica-api/
-├── src/
-│   ├── main/
-│   │   ├── java/com/example/clinica/
-│   │   └── resources/
-│   │       ├── application.yml
-│   │       └── db/migration/
-│   └── test/
-├── pom.xml
-└── README.md
 ```
