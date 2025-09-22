@@ -10,11 +10,19 @@ import java.util.List;
 
 @Entity
 @Table(name = "patient")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Patient {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private String name;
 
     @Embedded
     private Cpf cpf;
@@ -22,9 +30,14 @@ public class Patient {
     @Embedded
     private EmailAddress email;
 
-    @Column(nullable = false)
-    private String name;
-
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Appointment> appointments = new ArrayList<>();
+
+    public String getCpfValue() {
+        return cpf != null ? cpf.getValue() : null;
+    }
+
+    public String getEmailValue() {
+        return email != null ? email.getValue() : null;
+    }
 }

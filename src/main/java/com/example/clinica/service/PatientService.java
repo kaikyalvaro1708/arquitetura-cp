@@ -18,8 +18,8 @@ public class PatientService {
     private final PatientRepository repo;
 
     @Transactional
-    public Long criar(PatientCreateDTO dto) {
-        repo.findByCpfValue(dto.cpf()).ifPresent(p -> {
+    public Long create(PatientCreateDTO dto) {
+        repo.findByCpf_Value(dto.cpf()).ifPresent(p -> {
             throw new IllegalArgumentException("CPF já cadastrado");
         });
         Patient patient = Patient.builder()
@@ -31,7 +31,7 @@ public class PatientService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PatientResponseDTO> listar(Pageable pageable) {
+    public Page<PatientResponseDTO> list(Pageable pageable) {
         return repo.findAll(pageable)
                 .map(p -> new PatientResponseDTO(
                         p.getId(), p.getName(),

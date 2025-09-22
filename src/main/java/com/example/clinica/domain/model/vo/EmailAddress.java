@@ -7,15 +7,20 @@ import jakarta.validation.constraints.NotBlank;
 
 @Embeddable
 public class EmailAddress {
-    @Email @NotBlank
+
+    @Email
+    @NotBlank
     @Column(name = "email", nullable = false)
     private String value;
+
+    protected EmailAddress() {
+    }
 
     public EmailAddress(String value) {
         this.value = value;
     }
 
-//    protected Email() {} // JPA
-
-    public String getValue() { return value; }
+    public String getValue() {
+        return value;
+    }
 }
